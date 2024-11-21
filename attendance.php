@@ -1,15 +1,3 @@
-<?php
-session_start(); // Start the session
-
-// Check if the user is logged in, if not, redirect to the login page
-if (!isset($_SESSION['username'])) {
-    header("Location: login.php");
-    exit();
-}
-
-// Get the username from the session
-$username = $_SESSION['username'];
-?>
 
 <!DOCTYPE html>
 <html lang="en">
