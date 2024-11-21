@@ -19,16 +19,16 @@ if ($conn->connect_error) {
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Retrieve email and full name from the form
     $email = $conn->real_escape_string($_POST['email']);
-    $fullname = $conn->real_escape_string($_POST['fullname']);
+    $password = $conn->real_escape_string($_POST['password']);
 
     // Query the database to validate user
-    $sql = "SELECT * FROM user WHERE email = '$email' AND fullname = '$fullname'";
+    $sql = "SELECT * FROM user WHERE email = '$email' AND password = '$password'";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
         // User exists, set session and redirect to attendance.php
         $_SESSION['email'] = $email;
-        $_SESSION['fullname'] = $fullname;
+        $_SESSION['password'] = $password;
 
         header("Location: attendance.php");
         exit();

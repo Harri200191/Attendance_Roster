@@ -28,8 +28,8 @@
                         <input type="email" id="email" name="email" placeholder="Enter your email" required>
                     </div>
                     <div class="form-group">
-                        <label for="fullname">Full Name:</label>
-                        <input type="text" id="fullname" name="fullname" placeholder="Enter your Full Name" required>
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password" placeholder="Enter your password" required>
                     </div>
                     <div class="form-group">
                         <button type="submit">Login</button>

@@ -18,11 +18,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve user data from the form
     $fullname = $conn->real_escape_string($_POST['name']);
     $email = $conn->real_escape_string($_POST['email']);
+    $password = $conn->real_escape_string($_POST['password']);
     $class = $conn->real_escape_string($_POST['class']);
     $role = $conn->real_escape_string($_POST['role']);
 
     // Prepare the SQL query
-    $sql = "INSERT INTO user (fullname, email, class, role) VALUES ('$fullname', '$email', '$class', '$role')";
+    $sql = "INSERT INTO user (fullname, email, class, role, password) VALUES ('$fullname', '$email', '$class', '$role', '$password')";
 
     // Execute the query
     if ($conn->query($sql) === TRUE) {
