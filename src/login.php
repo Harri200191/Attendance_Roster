@@ -16,7 +16,7 @@ $error_message = "";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Get the username and password from the form
-    $username = $_POST['username'];
+    $username = $_POST['email'];
     $password = $_POST['password'];
 
     // Check if the credentials are correct
