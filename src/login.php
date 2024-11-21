@@ -3,7 +3,7 @@ session_start(); // Start the session
 
 // Check if user is already logged in, if so, redirect them to the attendance page
 if (isset($_SESSION['username'])) {
-    header("Location: attendance.php");
+    header("Location: src/attendance.php");
     exit();
 }
 
