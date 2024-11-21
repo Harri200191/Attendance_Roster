@@ -3,13 +3,13 @@ session_start(); // Start the session
 
 // Check if user is already logged in, if so, redirect them to the attendance page
 if (isset($_SESSION['username'])) {
-    header("Location: src/attendance.php");
+    header("Location: attendance.php");
     exit();
 }
 
 // Define dummy credentials (For demonstration purposes, use a database in real apps)
-$valid_username = "admin";
-$valid_password = "password123"; // In real applications, use hashed passwords
+$valid_username = "admin@1";
+$valid_password = "123"; // In real applications, use hashed passwords
 
 // Initialize error message
 $error_message = "";
@@ -39,25 +39,38 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>NUST Attendance System</title>
+    <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
+    <div class="container">
+        <header>
+            <h1>NUST Attendance Management System</h1>
+        </header>
 
-    <h2>Login Page</h2>
+        <main>
+            <section class="login-form">
+                <h2>Login</h2>
+                <form action="src/login.php" method="POST">
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit">Login</button>
+                    </div>
+                </form>
+            </section>
+        </main>
 
-    <?php if ($error_message): ?>
-        <p style="color: red;"><?php echo $error_message; ?></p>
-    <?php endif; ?>
-
-    <form method="POST" action="login.php">
-        <label for="username">Username:</label><br>
-        <input type="text" id="username" name="username" required><br><br>
-
-        <label for="password">Password:</label><br>
-        <input type="password" id="password" name="password" required><br><br>
-
-        <input type="submit" value="Login">
-    </form>
-
+        <footer>
+            <p>&copy; 2024 NUST. All rights reserved.</p>
+        </footer>
+    </div>
 </body>
 </html>
