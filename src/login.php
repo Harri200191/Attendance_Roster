@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <main>
             <section class="login-form">
                 <h2>Login</h2>
-                <form action="src/login.php" method="POST">
+                <form action="login.php" method="POST">
                     <div class="form-group">
                         <label for="email">Email:</label>
                         <input type="email" id="email" name="email" placeholder="Enter your email" required>
