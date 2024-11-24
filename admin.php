@@ -34,15 +34,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_attendance'])) 
     
     // Check if attendance data exists
     if (isset($_POST['attendance']) && is_array($_POST['attendance'])) {
-        foreach ($_POST['attendance'] as $student_id => $status) {
-            $sql = "INSERT INTO attendance (student_id, date, status) 
-                    VALUES ('$student_id', '$date', '$status')
-                    ON DUPLICATE KEY UPDATE status = '$status'";
-            if ($conn->query($sql)) {
+        foreach ($_POST['attendance'] as $email => $status) {
+            // Prevent SQL injection by using prepared statements
+            $stmt = $conn->prepare("INSERT INTO attendance (date, status, email) 
+                                    VALUES (?, ?, ?) 
+                                    ON DUPLICATE KEY UPDATE status = ?");
+            $stmt->bind_param("ssss", $date, $status, $email, $status);
+            
+            if ($stmt->execute()) {
                 $success_message = "Attendance recorded successfully!";
             } else {
-                $error_message = "Error recording attendance: " . $conn->error;
+                $error_message = "Error recording attendance: " . $stmt->error;
             }
+            $stmt->close();
         }
     } else {
         $error_message = "No attendance data submitted.";
@@ -59,7 +63,7 @@ $selected_class = isset($_POST['class']) ? $_POST['class'] : (isset($classes[0])
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard - Attendance Management</title>
-    <link rel="stylesheet" href="attendance.css">
+    <link rel="stylesheet" href="admin.css">
 </head>
 <body>
     <div class="container">
@@ -73,9 +77,7 @@ $selected_class = isset($_POST['class']) ? $_POST['class'] : (isset($classes[0])
             <?php endif; ?>
 
             <?php if (isset($error_message)): ?>
-                <div class="error-message" style="color: red; background: #ffebee; padding: 10px; border-radius: 4px; margin: 10px 0;">
-                    <?php echo $error_message; ?>
-                </div>
+                <div class="error-message"><?php echo $error_message; ?></div>
             <?php endif; ?>
 
             <div class="attendance-form">
@@ -121,7 +123,7 @@ $selected_class = isset($_POST['class']) ? $_POST['class'] : (isset($classes[0])
                                         <td><?php echo htmlspecialchars($student['fullname']); ?></td>
                                         <td><?php echo htmlspecialchars($student['email']); ?></td>
                                         <td>
-                                            <select name="attendance[<?php echo $student['id']; ?>]" 
+                                            <select name="attendance[<?php echo $student['email']; ?>]" 
                                                     class="status-select" required>
                                                 <option value="Present">Present</option>
                                                 <option value="Absent">Absent</option>

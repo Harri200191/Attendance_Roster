@@ -35,6 +35,13 @@
                         <button type="submit">Login</button>
                     </div>
                 </form>
+
+                <!-- Sign Up Button -->
+                <div class="form-group">
+                    <a href="signup.php">
+                        <button type="button">Sign Up</button>
+                    </a>
+                </div>
             </section>
         </main>
 

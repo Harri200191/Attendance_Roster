@@ -28,7 +28,7 @@ $user = $user_result->fetch_assoc();
 // Get attendance records for the student
 $attendance_query = "SELECT a.date, a.status 
                     FROM attendance a
-                    WHERE a.student_id = '{$user['id']}'
+                    WHERE a.email = '{$user['email']}'
                     ORDER BY a.date DESC";
 $attendance_result = $conn->query($attendance_query);
 
