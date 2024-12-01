@@ -1,3 +1,6 @@
 *.doc
 *.docx
 *.pdf
+*.rar
+/Code_Zip
+Code_Zip.rar
